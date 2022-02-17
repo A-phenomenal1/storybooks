@@ -6,6 +6,13 @@ function StoryPage() {
   const [story, setStory] = useState();
   const router = useRouter();
 
+  const changeFormatedDate = (timestamp) => {
+    let date = new Date(timestamp);
+    return (
+      date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
+    );
+  };
+
   useEffect(async () => {
     try {
       const response = await axios.get(`/api/contents/${router.query.id}`);
@@ -53,6 +60,10 @@ function StoryPage() {
                   disabled
                   placeholder="Start Writing story here..."
                 />
+              </div>
+              <div>
+                <span>Published Date: </span>
+                {story && changeFormatedDate(story.createdAt)}
               </div>
             </div>
           </div>
